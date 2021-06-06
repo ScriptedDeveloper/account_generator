@@ -20,5 +20,11 @@ Everything else should be pretty much self-explanatory.
 # License
 A customized license can be found in LICENSE.
 
+# Anti-virus scans
+This program might be detected as malware by some unpopular anti-virus softwares. Please be assured that those are false detections and you can check the code for any malicious intentions.
+
+# Exposing the Server to the internet
+With a little tweaks like port forwarding the server and changing the server URL var in the frontend Source Code, you can expose the Server to the internet! If you need some assistence, do not hesitate to contact me on Github.
+
 # Donations
 As most of you know, I have spent much time on this project. So if you feel like donating something, feel not free to do so. Instead, please donate your money to people in need since I have already gotten everything I need and please disregard the other donation wallet addresses since those are outdated.
