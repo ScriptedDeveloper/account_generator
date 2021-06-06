@@ -15,7 +15,7 @@ except:
     system('pip install requests')
     system('pip install flask_limiter')
     system('pip install threading')
-
+    exit()
 
 app = Flask(__name__)
 limiter = Limiter(app, key_func=get_remote_address, default_limits=['4 per minute'])
@@ -55,10 +55,10 @@ class API():
         Thread(target=self.check_stock).start()
 
     def check_if_txt_created(self, a_type):
-        open(f'{a_type}.txt')
+        open(a_type + ".txt", 'r')
 
     def check_if_empty(self, a_type):
-        if stat(f'{a_type}.txt').st_size != 0:
+        if stat(a_type + ".txt").st_size != 0:
             self.empty = False
         else:
             self.empty = True
@@ -81,7 +81,7 @@ class API():
 
             except KeyError:return Response(status=403)
         
-        @app.route(f'/get/account', methods=['GET'])
+        @app.route('/get/account', methods=['GET'])
         @limiter.exempt
         def response_call1():
             try:
@@ -100,8 +100,8 @@ class API():
             if self.empty == True:
                 return jsonify({'status' : 400, 'reason' : 'empty'})
             else:
-                account = open(f'{request.headers.get("account_type")}.txt', 'r').readline()
-                open(f'{request.headers.get("account_type")}.txt', 'w').writelines(open(f'{request.headers.get("account_type")}.txt', 'r').read().splitlines(True)[1:])
+                account = open(request.headers.get("account_type") + '.txt', 'r').readline()
+                open(request.headers.get("account_type") + 'txt', 'w').writelines(open(request.headers.get("account_type") +'.txt', 'r').read().splitlines(True)[1:])
                 self.accounts[request.headers.get("account_type")][0]["stock"] -= 1 # This is how you do it
                 self.json_dump_account()
                 return jsonify({'status' : 200, 'account' : account})
@@ -132,7 +132,7 @@ class API():
            # try:
                 for admin in self.admins:
                     if admin == request.headers.get('auth'):
-                        open(f'{request.headers.get("name")}.txt', 'w+')
+                        open(request.headers.get("name") + '.txt', 'w+')
                         open("accounts.txt", 'w').write("\n" + request.headers.get("name"))
                         new_plan = {request.headers.get("name") : [{"stock" : 0, "frozen" : False}]}
                         self.accounts.update(new_plan)
@@ -152,7 +152,7 @@ class API():
             for admin_ in self.admins:
                 try:
                     if admin == request.headers.get('auth'):
-                        open(f'{request.json["name"]}.txt')
+                        open(request.json["name"] + '.txt')
                         remove("errr.txt")
                         for line in open("accounts.txt", 'r').read():
                             if line == request.headers.get("name"):
