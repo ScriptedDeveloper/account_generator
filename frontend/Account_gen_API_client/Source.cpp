@@ -21,11 +21,6 @@ string accounts_;
 
 // build in too many requests
 
-DWORD WINAPI Accounts(LPVOID lparam) {
-	return 0;
-}
-
-
 class main_ {
 public:
 	string auth = "auth.json";
